@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-const studentRoutes = require("./routes/students");
+const studentRoutes = require("./routes/studentsRoutes");
 
 app.use(studentRoutes);
 

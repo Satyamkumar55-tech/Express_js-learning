@@ -1,4 +1,4 @@
-let students = [];
+const students = require("../data/students");
 
 const getStudents = (req, res) => {
     res.json(students);
