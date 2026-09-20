@@ -4,6 +4,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const studentRoutes = require("./routes/studentRoutes");
+const authRoutes = require("./routes/authRoutes");
+app.use("/auth", authRoutes);
 
 const app = express();
 
