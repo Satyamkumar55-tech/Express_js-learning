@@ -15,6 +15,8 @@ async function startServer() {
       family: 4,
     });
 
+    console.log("Database:", mongoose.connection.db.databaseName);
+    console.log("Host:", mongoose.connection.host);
     console.log("MongoDB connected through Mongoose!");
 
     // Student Routes
