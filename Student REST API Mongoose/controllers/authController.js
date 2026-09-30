@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // POST /auth/register
 const registerUser = async (req, res) => {
@@ -75,19 +76,22 @@ const loginUser = async (req, res) => {
 
     // 2. Use the boolean in an if-check to handle the client response
     if (isPasswordValid) {
-      res.status(200).json({ 
-        message: "Login successful!",
-      user: {
-        id: existingUser._id,
-        name: existingUser.name,
-        email: existingUser.email,
-      },
-    });
+      const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      res.status(200).json({
+        message: "Login successful and token recived!",
+        user: {
+          id: existingUser._id,
+          name: existingUser.name,
+          email: existingUser.email,
+        },
+        token: token
+      });
     } else {
       // Handle the failure case for the client
       res.status(401).json({ error: "Authentication Failed!" });
     }
-    
   } catch (error) {
     console.error(error);
     res.status(500).json({
