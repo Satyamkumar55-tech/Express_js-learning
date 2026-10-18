@@ -86,7 +86,7 @@ const loginUser = async (req, res) => {
           name: existingUser.name,
           email: existingUser.email,
         },
-        token: token
+        token: token,
       });
     } else {
       // Handle the failure case for the client
