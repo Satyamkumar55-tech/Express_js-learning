@@ -100,7 +100,32 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  try {
+    // 1. Find the user by the id the middleware gave you
+    const currentUser = await User.findById(req.user.id);
+    // 2. If no user came back -> 404, return
+    if(!currentUser){
+      return res.status(404).json({error:"User not found!"})
+    }
+
+    // 3. Send back { id, name, email } only
+    res.status(200).json({
+      message: "User Profile founded",
+      user: {
+        id: currentUser._id,
+        name: currentUser.name,
+        email: currentUser.email,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch profile" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  getProfile,
 };
